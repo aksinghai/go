@@ -8,10 +8,10 @@ import all.company.com.common.DListNode;
 
 public class Main {
 
-    private static Map<Integer, DListNode> lookup;
-    private static int K;
-    private static DListNode head;
-    private static DListNode tail;
+    private static Map<Integer, DListNode<Integer>> lookup;
+    private static Integer K;
+    private static DListNode<Integer> head;
+    private static DListNode<Integer> tail;
 
     static {
         lookup = new HashMap<>(5);
@@ -32,37 +32,37 @@ public class Main {
 
     private static void addLog(int i){
         if(!lookup.containsKey(i)){
-            DListNode node = new DListNode();
-            node.item = i;
+            DListNode<Integer> node = new DListNode<>();
+            node.setItem(i);
             if(head == null){
                 head = node;
                 tail = head;
             } else {
                 if(lookup.size() == K){
-                    lookup.remove(head.item);
-                    head = head.next;
-                    head.prev = null;
+                    lookup.remove(head.getItem());
+                    head = head.getNext();
+                    head.setPrev(null);
                 }
-                tail.next = node;
-                node.prev = tail;
-                tail = tail.next;
+                tail.setNext(node);
+                node.setPrev(tail);
+                tail = tail.getNext();
             }
             lookup.put(i, node);
         } else {
-            DListNode node = lookup.get(i);
-            if(node.prev != null && node.next != null){ //Middle node
-                node.prev.next = node.next;
-                node.next.prev = node.prev;
-            } else if (node.prev == null) { //Head Node
-                node.next.prev = null;
-                head = head.next;
-                node.next = null;
+            DListNode<Integer> node = lookup.get(i);
+            if(node.getPrev() != null && node.getNext() != null){ //Middle node
+                node.getPrev().setNext(node.getNext());
+                node.getNext().setPrev(node.getPrev());
+            } else if (node.getPrev() == null) { //Head Node
+                node.getNext().setPrev(null);
+                head = head.getNext();
+                node.setNext(null);
             } else { //Last Node
                 return;
             }
-            tail.next = node;
-            node.prev = tail;
-            tail = tail.next;
+            tail.setNext(node);
+            node.setPrev(tail);
+            tail = tail.getNext();
         }
     }
 

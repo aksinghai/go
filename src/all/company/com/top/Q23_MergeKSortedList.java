@@ -14,13 +14,13 @@ public class Q23_MergeKSortedList {
         for(int i = 0; i < arrayList.size(); i++){
             for(int j = 0; j < arrayList.get(i).size(); j++){
                 ListNode node = new ListNode();
-                node.val = arrayList.get(i).get(j);
+                node.setItem(arrayList.get(i).get(j));
                 if(listNodes[i] == null){
                     listNodes[i] = node;
                     tail[i] = node;
                 } else {
-                    tail[i].next = node;
-                    tail[i] = tail[i].next;
+                    tail[i].setNext(node);
+                    tail[i] = tail[i].getNext();
                 }
             }
         }
@@ -39,8 +39,8 @@ public class Q23_MergeKSortedList {
         System.out.println("test");
         ListNode head = mergeKSortedListsSol1(listNodes);
         while (head != null){
-            System.out.println(head.val);
-            head = head.next;
+            System.out.println(head.getItem());
+            head = head.getNext();
         }
     }
 
@@ -61,7 +61,7 @@ public class Q23_MergeKSortedList {
             if(lists[i] == null){
                 continue;
             }
-            if(min1 == null || min1.val > lists[i].val){
+            if(min1 == null || (int)min1.getItem() > (int)lists[i].getItem()){
                 min1 = lists[i];
                 j = i;
             }
@@ -73,13 +73,13 @@ public class Q23_MergeKSortedList {
         int k = -1;
         while(true){
             ListNode min2 = null;
-            lists[j] = lists[j].next;
+            lists[j] = lists[j].getNext();
             boolean notingMove = true;
             for(int i = 0; i < lists.length; i++){
                 if(lists[i] == null){
                     continue;
                 }
-                if((min2 == null || min2.val > lists[i].val) && min1 != lists[i]){
+                if((min2 == null || (int)min2.getItem() > (int)lists[i].getItem()) && min1 != lists[i]){
                     min2 = lists[i];
                     k = i;
                     notingMove =false;
@@ -88,7 +88,7 @@ public class Q23_MergeKSortedList {
             if(notingMove){
                 break;
             }
-            min1.next = min2;
+            min1.setNext(min2);
             j = k;
             min1 = min2;
             if(min1 == null){

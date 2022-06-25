@@ -7,27 +7,27 @@ import all.company.com.common.ListNode;
 
 public class Q24_SwapNodesInPair {
     public static void main(String[] args) {
-        ListNode listNode = LLUtils.getLinkedList(7);
+        ListNode<Integer> listNode = LLUtils.getLinkedList(7);
         LLUtils.printLinkedList(listNode);
         int pairSize = 6;
-        ListNode head = swapNodesInPair(listNode, pairSize);
+        ListNode<Integer> head = swapNodesInPair(listNode, pairSize);
         LLUtils.printLinkedList(head);
     }
 
-    private static ListNode swapNodesInPair(ListNode head, Integer pairSize) {
-        ListNode nHead = null;
-        ListNode t = null;
-        ListNode tail = null;
+    private static ListNode<Integer> swapNodesInPair(ListNode<Integer> head, Integer pairSize) {
+        ListNode<Integer> nHead = null;
+        ListNode<Integer> t = null;
+        ListNode<Integer> tail = null;
         int ctr = pairSize;
         while (head != null){
-            Stack<ListNode> stack = new Stack<>();
+            Stack<ListNode<Integer>> stack = new Stack<>();
             t = head;
             while(ctr-- > 0){
                 if(head == null){
                     break;
                 }
                 stack.push(head);
-                head = head.next;
+                head = head.getNext();
             }
 
             if(stack.size() == pairSize){
@@ -36,9 +36,9 @@ public class Q24_SwapNodesInPair {
                         nHead = stack.pop();
                         tail = nHead;
                     } else {
-                        tail.next = stack.pop();
-                        tail = tail.next;
-                        tail.next = null;
+                        tail.setNext(stack.pop());
+                        tail = tail.getNext();
+                        tail.setNext(null);
                     }
                 }
                 ctr = pairSize;
@@ -46,7 +46,7 @@ public class Q24_SwapNodesInPair {
                 if(nHead == null){
                     nHead = t;
                 } else {
-                    tail.next = t;
+                    tail.setNext(t);
                 }
             }
         }

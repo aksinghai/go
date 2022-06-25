@@ -4,42 +4,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class LLUtils {
+public class LLUtils<T> {
 
-    public static ListNode getLinkedList(int n){
+    public static <T> ListNode<T> getLinkedList(int n){
         List<Integer> list = new ArrayList<>();
         for(int i = 0; i < n; i++){
-            list.add(i+1);
+            list.add(i);
         }
         return getLinkedList(list);
     }
 
-    public static ListNode getLinkedList(List<Integer> list) {
-        ListNode head = null;
-        ListNode tail = null;
+    public static <T> ListNode<T> getLinkedList(List<Integer> list) {
+        ListNode<T> head = null;
+        ListNode<T> tail = null;
         for (Integer integer : list) {
-            ListNode node = new ListNode();
-            node.val = integer;
+            ListNode<T> node = new ListNode<>();
+            node.setItem((T) integer);
+
             if (head == null) {
                 head = node;
                 tail = head;
             } else {
-                tail.next = node;
-                tail = tail.next;
+                tail.setNext(node);
+                tail = tail.getNext();
             }
         }
         return head;
     }
 
-    public static void printLinkedList(ListNode head){
+    public static <T> void printLinkedList(ListNode<T> head){
         System.out.println("LINKED LIST");
         while (head != null){
-            if(head.next != null){
-                System.out.print(head.val+"->");
+            if(head.getNext() != null){
+                System.out.print(head.getItem() +"->");
             } else {
-                System.out.print(head.val);
+                System.out.print(head.getItem());
             }
-            head = head.next;
+            head = head.getNext();
         }
         System.out.println();
     }

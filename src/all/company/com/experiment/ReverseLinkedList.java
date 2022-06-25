@@ -7,42 +7,42 @@ import all.company.com.common.ListNode;
 
 public class ReverseLinkedList {
     public static void main(String[] args) {
-        ListNode list = LLUtils.getLinkedList(5);
+        ListNode<Integer> list = LLUtils.getLinkedList(5);
         LLUtils.printLinkedList(list);
-        ListNode head = reverseLinkedListUsingIteration(list);
+        ListNode<Integer> head = reverseLinkedListUsingIteration(list);
         LLUtils.printLinkedList(head);
     }
 
-    private static ListNode reverseLinkedListUsingRecursion(final ListNode head) {
-        if(head.next == null){
+    private static ListNode<Integer> reverseLinkedListUsingRecursion(final ListNode<Integer> head) {
+        if(head.getNext() == null){
             return head;
         }
-        ListNode node = reverseLinkedListUsingRecursion(head.next);
-        head.next.next = head;
-        head.next = null;
+        ListNode<Integer> node = reverseLinkedListUsingRecursion(head.getNext());
+        head.getNext().setNext(head);
+        head.setNext(null);
         return node;
     }
 
-    private static ListNode reverseLinkedListUsingIteration(ListNode head) {
-        if(head == null || head.next == null){
+    private static ListNode<Integer> reverseLinkedListUsingIteration(ListNode<Integer> head) {
+        if(head == null || head.getNext() == null){
             return head;
         }
-        Stack<ListNode> stack = new Stack<>();
+        Stack<ListNode<Integer>> stack = new Stack<>();
         while(head != null){
             stack.push(head);
-            head = head.next;
+            head = head.getNext();
         }
-        ListNode tail = null;
+        ListNode<Integer> tail = null;
         while (!stack.isEmpty()){
-            ListNode node = stack.pop();
+            ListNode<Integer> node = stack.pop();
             if(head == null){
                 head = node;
                 tail = head;
-                tail.next = null;
+                tail.setNext(null);
             } else {
-                tail.next = node;
-                tail = tail.next;
-                tail.next = null;
+                tail.setNext(node);
+                tail = tail.getNext();
+                tail.setNext(null);
             }
         }
         return head;

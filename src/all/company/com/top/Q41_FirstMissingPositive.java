@@ -6,7 +6,6 @@ public class Q41_FirstMissingPositive {
         System.out.println(firstMissingPositive(arr));
     }
 
-
     //Hint: Replace num on the right location in an array
     public static int firstMissingPositive(int[] nums) {
         int i = 0;

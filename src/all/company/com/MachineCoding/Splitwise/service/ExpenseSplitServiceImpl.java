@@ -10,10 +10,24 @@ import all.company.com.MachineCoding.Splitwise.entity.UserCredit;
 
 public class ExpenseSplitServiceImpl implements ExpenseSplitService {
 
+    private static ExpenseSplitService expenseSplitService;
+
     static Integer expenseIndex = 0;
     static Integer userCreditIndex = 0;
     static Map<Integer, Expense> expenseLookup = new HashMap<>();
 
+    private ExpenseSplitServiceImpl() { }
+
+    public static ExpenseSplitService getInstance() {
+        if(expenseSplitService == null){
+            synchronized (ExpenseSplitService.class){
+                if(expenseSplitService == null){
+                    expenseSplitService = new ExpenseSplitServiceImpl();
+                }
+            }
+        }
+        return expenseSplitService;
+    }
 
     @Override public Expense getExpense(final Integer id) {
         if(expenseLookup.containsKey(id)){
@@ -49,13 +63,13 @@ public class ExpenseSplitServiceImpl implements ExpenseSplitService {
             System.out.println("Something went wrong");
         }
         for (Map.Entry<Integer, Double> entry: applyCreditMap.entrySet()){
-            if(UserServiceImpl.userCreditLookup.containsKey(expense.getPaidByUserId()+"_"+entry.getKey())){
-                UserCredit userCredit = UserServiceImpl.userCreditLookup.get(expense.getPaidByUserId()+"_"+entry.getKey());
+            if(UserServiceImpl.getInstance().getUserCreditLookup().containsKey(expense.getPaidByUserId()+"_"+entry.getKey())){
+                UserCredit userCredit = UserServiceImpl.getInstance().getUserCreditLookup().get(expense.getPaidByUserId()+"_"+entry.getKey());
                 userCredit.setAmount(userCredit.getAmount() + entry.getValue());
             } else {
                 UserCredit userCredit = new UserCredit(userCreditIndex+1, expense.getPaidByUserId(), entry.getKey(),
                         entry.getValue());
-                UserServiceImpl.userCreditLookup.put(expense.getPaidByUserId()+"_"+entry.getKey(), userCredit);
+                UserServiceImpl.getInstance().getUserCreditLookup().put(expense.getPaidByUserId()+"_"+entry.getKey(), userCredit);
             }
         }
         expense.setSplits(splits);

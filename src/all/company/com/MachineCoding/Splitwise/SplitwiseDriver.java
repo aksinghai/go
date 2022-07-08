@@ -20,8 +20,8 @@ public class SplitwiseDriver {
     private static ExpenseSplitService expenseSplitService;
 
     static {
-        userService = new UserServiceImpl();
-        expenseSplitService = new ExpenseSplitServiceImpl();
+        userService = UserServiceImpl.getInstance();
+        expenseSplitService = ExpenseSplitServiceImpl.getInstance();
     }
 
     public static void main(String[] args) {
@@ -30,6 +30,7 @@ public class SplitwiseDriver {
         System.out.println("----------- Splitwise -----------");
         while (true){
             String input = sc.next();
+            System.out.println(">>> "+input);
             switch (input) {
                 case "create-user" : {
                     System.out.println("Enter Name : ");

@@ -16,8 +16,8 @@ public class FoodKartApp {
     static UserService userService;
 
     static {
-        restaurantService = new RestaurantServiceImpl();
-        userService = new UserServiceImpl();
+        restaurantService = RestaurantServiceImpl.getInstance();
+        userService = UserServiceImpl.getInstance();
     }
 
     public static void main(String[] args) {
@@ -110,7 +110,7 @@ public class FoodKartApp {
                 case exit:
                     return;
                 default:
-                    throw new IllegalStateException("AAAA Unexpected value: " + Command.valueOf(cmd));
+                    throw new IllegalStateException("Unexpected value: " + Command.valueOf(cmd));
             }
         }
     }

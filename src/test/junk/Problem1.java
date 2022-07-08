@@ -69,7 +69,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Solution {
+public class Problem1 {
     public static void main(String[] argv) {
         String[][] logs1 = new String[][] {
                 { "58523", "user_1", "resource_1" },

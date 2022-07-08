@@ -14,10 +14,25 @@ import all.company.com.MachineCoding.FoodKart.entity.User;
 
 public class UserServiceImpl implements UserService {
 
+    private static UserService userService;
+
     private Integer userIndex = 0;
     private Integer orderIndex = 0;
     private Integer orderItemIndex = 0;
-    public static Map<Integer, User> userIdUserMap = new HashMap<>();
+    private static final Map<Integer, User> userIdUserMap = new HashMap<>();
+
+    private UserServiceImpl() { }
+
+    public static UserService getInstance() {
+        if(userService == null){
+            synchronized (UserServiceImpl.class){
+                if(userService == null){
+                    userService = new UserServiceImpl();
+                }
+            }
+        }
+        return userService;
+    }
 
     @Override public User registerUser(final String name, final String gender, final String phoneNumber,
             final String pincode) {

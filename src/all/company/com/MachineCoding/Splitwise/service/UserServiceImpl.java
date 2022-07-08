@@ -10,9 +10,27 @@ import all.company.com.MachineCoding.Splitwise.entity.UserCredit;
 
 public class UserServiceImpl implements UserService {
 
+    private static UserService userService;
     static Integer userIndex = 0;
     static Map<Integer, User> userLookup = new HashMap<>();
-    public static Map<String, UserCredit> userCreditLookup = new HashMap<>();
+    private static final Map<String, UserCredit> userCreditLookup = new HashMap<>();
+
+    private UserServiceImpl() { }
+
+    public static UserService getInstance() {
+        if(userService == null){
+            synchronized (UserServiceImpl.class) {
+                if(userService == null){
+                    userService = new UserServiceImpl();
+                }
+            }
+        }
+        return userService;
+    }
+
+    public Map<String, UserCredit> getUserCreditLookup(){
+        return userCreditLookup;
+    }
 
     @Override public User createUser(final String name) {
         User user = new User(userIndex+1,name);

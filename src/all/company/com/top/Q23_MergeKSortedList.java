@@ -44,7 +44,7 @@ public class Q23_MergeKSortedList {
         }
     }
 
-    //Best Solution
+    //Best Problem2
     /*
     Hint:
     1. Find min

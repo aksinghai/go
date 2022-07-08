@@ -11,6 +11,8 @@ import all.company.com.MachineCoding.FoodKart.entity.Restaurant;
 
 public class RestaurantServiceImpl implements RestaurantService {
 
+    private static RestaurantService restaurantService;
+
     private Integer restaurantIndex = 0;
     private Integer itemIndex = 0;
     private Integer ratingIndex = 0;
@@ -18,6 +20,18 @@ public class RestaurantServiceImpl implements RestaurantService {
     public static Map<String, Restaurant> restaurantNameToRestaurantMap = new HashMap<>();
     public static Map<String, List<Restaurant>> pincodeToRestaurantMap = new HashMap<>();
 
+    private RestaurantServiceImpl() { }
+
+    public static RestaurantService getInstance() {
+        if(restaurantService == null){
+            synchronized (RestaurantServiceImpl.class){
+                if(restaurantService == null){
+                    restaurantService = new RestaurantServiceImpl();
+                }
+            }
+        }
+        return restaurantService;
+    }
 
     @Override public Restaurant registerRestaurant(final String restaurantName, final List<String> pincodes,
             final String foodItemName,

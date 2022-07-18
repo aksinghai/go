@@ -1,4 +1,4 @@
-package test;
+package test.junk;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ class EmployeeNode {
     }
 }
 
-public class Test {
+public class Solution3 {
     public static void main(String[] args) {
         String[][] input = readInput();
         Map<Integer,EmployeeNode> lookup = new HashMap<>();

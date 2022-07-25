@@ -14,6 +14,9 @@ public class Q24_SwapNodesInPair {
         LLUtils.printLinkedList(head);
     }
 
+    /*
+    Hint :
+     */
     private static ListNode<Integer> swapNodesInPair(ListNode<Integer> head, Integer pairSize) {
         ListNode<Integer> nHead = null;
         ListNode<Integer> t = null;

@@ -1,12 +1,12 @@
 package all.company.com.MachineCoding.MultilevelCacheNew.entity;
 
-public class RandomEviction implements Eviction{
+public class RandomEviction implements Eviction {
 
-    @Override public void evict() {
+    @Override public void keyAccess(final String Key) {
 
     }
 
-    @Override public void keyAccess() {
+    @Override public void evict() {
 
     }
 }

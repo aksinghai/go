@@ -7,6 +7,14 @@ public class Data<T> {
     private Data<T> nextData;
     private Data<T> prevData;
 
+    public Data(final T value, final int frequency, final Data<T> nextData,
+            final Data<T> prevData) {
+        this.value = value;
+        this.frequency = frequency;
+        this.nextData = nextData;
+        this.prevData = prevData;
+    }
+
     public T getValue() {
         return value;
     }
@@ -23,19 +31,19 @@ public class Data<T> {
         this.frequency = frequency;
     }
 
-    public Data getNextData() {
+    public Data<T> getNextData() {
         return nextData;
     }
 
-    public void setNextData(final Data nextData) {
+    public void setNextData(final Data<T> nextData) {
         this.nextData = nextData;
     }
 
-    public Data getPrevData() {
+    public Data<T> getPrevData() {
         return prevData;
     }
 
-    public void setPrevData(final Data prevData) {
+    public void setPrevData(final Data<T> prevData) {
         this.prevData = prevData;
     }
 }

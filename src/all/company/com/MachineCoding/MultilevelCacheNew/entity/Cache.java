@@ -1,5 +1,6 @@
 package all.company.com.MachineCoding.MultilevelCacheNew.entity;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -10,15 +11,19 @@ public abstract class Cache<T> {
     private Integer id;
     private String name;
     private Map<String, Data<T>> keyValue;
-    private Data<T> storage;
+    private Data<T> head;
+    private Data<T> tail;
     private Integer maxCapacity;
     private Integer allocatedCapacity;
+    private Eviction eviction;
 
     protected Cache(final String name, final Integer maxCapacity) {
         this.id = cacheIndex++;
         this.name = name;
         this.maxCapacity = maxCapacity;
         this.allocatedCapacity = 0;
+        this.keyValue = new HashMap<>();
+        this.eviction = new LRUEviction<T>(this);
     }
 
     protected Integer getId() {
@@ -62,7 +67,31 @@ public abstract class Cache<T> {
         this.keyValue = keyValue;
     }
 
-    public abstract <T> String get(String key);
+    protected Data<T> getHead() {
+        return head;
+    }
+
+    protected void setHead(final Data<T> head) {
+        this.head = head;
+    }
+
+    protected Data<T> getTail() {
+        return tail;
+    }
+
+    protected void setTail(final Data<T> tail) {
+        this.tail = tail;
+    }
+
+    protected Eviction getEviction() {
+        return eviction;
+    }
+
+    protected void setEviction(final Eviction eviction) {
+        this.eviction = eviction;
+    }
+
+    public abstract T get(String key);
 
     public abstract boolean set(String key, T value);
 

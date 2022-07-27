@@ -1,4 +1,4 @@
-package all.company.com.MachineCoding.MultilevelCacheNew.entity;
+package all.company.com.MachineCoding.MultilevelCacheNew.entity.eviction;
 
 public class LRUEviction <T> implements Eviction{
 
@@ -37,6 +37,7 @@ public class LRUEviction <T> implements Eviction{
             node.setPrevData(node);
             cache.getTail().setNextData(null);
             cache.setAllocatedCapacity(cache.getAllocatedCapacity()-1);
+            cache.getKeyValue().remove(node.getKey());
         }
     }
 }

@@ -3,7 +3,7 @@ package all.company.com.MachineCoding.MultilevelCacheNew.service;
 
 public interface MultiLevelCacheService<T> {
 
-    void init(final int levels);
+    void init(final int levels, final String[] type);
 
     T get(String key);
 

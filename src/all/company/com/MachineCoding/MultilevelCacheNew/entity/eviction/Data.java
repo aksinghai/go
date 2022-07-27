@@ -1,18 +1,28 @@
-package all.company.com.MachineCoding.MultilevelCacheNew.entity;
+package all.company.com.MachineCoding.MultilevelCacheNew.entity.eviction;
 
 public class Data<T> {
 
+    private String key;
     private T value;
     private int frequency;
     private Data<T> nextData;
     private Data<T> prevData;
 
-    public Data(final T value, final int frequency, final Data<T> nextData,
+    public Data(final String key, final T value, final int frequency, final Data<T> nextData,
             final Data<T> prevData) {
+        this.key = key;
         this.value = value;
         this.frequency = frequency;
         this.nextData = nextData;
         this.prevData = prevData;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(final String key) {
+        this.key = key;
     }
 
     public T getValue() {

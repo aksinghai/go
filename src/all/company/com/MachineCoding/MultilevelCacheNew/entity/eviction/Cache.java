@@ -1,4 +1,4 @@
-package all.company.com.MachineCoding.MultilevelCacheNew.entity;
+package all.company.com.MachineCoding.MultilevelCacheNew.entity.eviction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,14 +16,21 @@ public abstract class Cache<T> {
     private Integer maxCapacity;
     private Integer allocatedCapacity;
     private Eviction eviction;
+    private final Integer readTime;
+    private final Integer writeTime;
+    private final Integer deleteTime;
 
-    protected Cache(final String name, final Integer maxCapacity) {
+    protected Cache(final String name, final Integer maxCapacity, final Integer readTime, final Integer writeTime,
+            final Integer deleteTime) {
         this.id = cacheIndex++;
         this.name = name;
         this.maxCapacity = maxCapacity;
         this.allocatedCapacity = 0;
         this.keyValue = new HashMap<>();
         this.eviction = new LRUEviction<T>(this);
+        this.readTime = readTime;
+        this.writeTime = writeTime;
+        this.deleteTime = deleteTime;
     }
 
     protected Integer getId() {
@@ -34,7 +41,7 @@ public abstract class Cache<T> {
         this.id = id;
     }
 
-    protected String getName() {
+    public String getName() {
         return name;
     }
 
@@ -89,6 +96,18 @@ public abstract class Cache<T> {
 
     protected void setEviction(final Eviction eviction) {
         this.eviction = eviction;
+    }
+
+    public Integer getReadTime() {
+        return readTime;
+    }
+
+    public Integer getWriteTime() {
+        return writeTime;
+    }
+
+    public Integer getDeleteTime() {
+        return deleteTime;
     }
 
     public abstract T get(String key);

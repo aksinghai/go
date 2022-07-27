@@ -4,10 +4,12 @@ import all.company.com.MachineCoding.MultilevelCacheNew.entity.eviction.Cache;
 import all.company.com.MachineCoding.MultilevelCacheNew.entity.eviction.Data;
 
 
-public class RedisCache<T> extends Cache<T> {
+public class MemCache<T> extends Cache<T> {
 
-    public RedisCache(final String name, final Integer maxCapacity) {
-        super(name, maxCapacity, 10, 15, 5);
+
+
+    public MemCache(final String name, final Integer maxCapacity) {
+        super(name, maxCapacity, 100, 150, 50);
     }
 
     @Override public T get(final String key) {
@@ -28,15 +30,15 @@ public class RedisCache<T> extends Cache<T> {
         } else {
             if(this.getAllocatedCapacity() >= this.getMaxCapacity()) {
                 getEviction().evict();
+            } else {
+                this.setAllocatedCapacity(this.getAllocatedCapacity()+1);
             }
-
             Data<T> newDataNode = new Data<>(key, value, 0, null, null);
             if(this.getTail() == null){
                 this.setHead(newDataNode);
             } else {
                 newDataNode.setPrevData(this.getTail());
             }
-            this.setAllocatedCapacity(this.getAllocatedCapacity()+1);
             this.setTail(newDataNode);
             this.getKeyValue().put(key, newDataNode);
         }

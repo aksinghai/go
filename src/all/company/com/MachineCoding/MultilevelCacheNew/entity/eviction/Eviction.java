@@ -1,4 +1,4 @@
-package all.company.com.MachineCoding.MultilevelCacheNew.entity;
+package all.company.com.MachineCoding.MultilevelCacheNew.entity.eviction;
 
 public interface Eviction {
 

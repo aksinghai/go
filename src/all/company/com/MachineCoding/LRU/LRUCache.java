@@ -1,13 +1,13 @@
 package all.company.com.MachineCoding.LRU;
 
 import java.util.Scanner;
-import all.company.com.MachineCoding.LRU.service.LRUService;
+import all.company.com.MachineCoding.LRU.service.LRUCacheService;
 import all.company.com.MachineCoding.LRU.service.UserService;
 
 
 public class LRUCache {
 
-    public static LRUService lruService = new LRUService();
+    public static LRUCacheService lruCacheService = new LRUCacheService();
     public static UserService userService = new UserService();
 
     public static void main(String[] args) {
@@ -26,11 +26,11 @@ public class LRUCache {
                 case "add-log" : {
                     System.out.println("Enter UserID:");
                     Integer userId = sc.nextInt();
-                    lruService.addLog(userId);
+                    lruCacheService.addLog(userId);
                     break;
                 }
                 case "get-user" : {
-                    System.out.println(lruService.getUser());
+                    System.out.println(lruCacheService.getUser());
                     break;
                 }
                 case "exit" :{

@@ -1,7 +1,6 @@
-package all.company.com.Patterns.SlidingWindow;
+package all.company.com.top;
 
-
-public class Q7_MaxSubStringAfterReplacement {
+public class Q424_LongestRepeatingCharacterReplacement {
     public static void main(String[] args) {
         String s =
                 "AABABBA";

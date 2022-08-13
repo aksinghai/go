@@ -21,7 +21,7 @@ public class SnackAndLadderDriver {
 
         System.out.println("---------- SNACK AND LADDER ---------");
         Scanner sc = new Scanner(System.in);
-        List<Player> players = new ArrayList<>();
+        List<Integer> playerIds = new ArrayList<>();
         int chance = 0;
         int iteration = 0;
         while (true) {
@@ -35,11 +35,11 @@ public class SnackAndLadderDriver {
                     for(int i = 0; i < n; i++){
                         System.out.println("Name of Player "+(i+1)+" :");
                         String name = sc.nextLine();
-                        Player player = new Player(name, -1, -1);
-                        players.add(player);
+                        Player player = playerService.createPlayer(name);
+                        playerIds.add(player.getId());
                     }
-                    for(Player player : players){
-                        System.out.print(player.getName() + " ");
+                    for(int playerId : playerIds){
+                        System.out.print(playerService.getPlayer(playerId).getName()+" ");
                     }
                     System.out.print(" are playing, chances are in sequence");
                     break;
@@ -48,22 +48,24 @@ public class SnackAndLadderDriver {
                     while(true){
                         int six = 0;
                         while(six < 3){
-                            int dice = 1;//((int)(Math.random() * 100) % 6) + 1;
-                            System.out.println((players.get(chance).getName())+" : "+ dice);
-                            Box box = gameService.move(players.get(chance),dice);
-                            if(gameService.isWon(players.get(chance))){
-                                System.out.println(players.get(chance).getName() + " Won the game !!!");
+                            int dice = ((int)(Math.random() * 100) % 6) + 1;
+                            Player player = playerService.getPlayer(playerIds.get(chance));
+                            System.out.println(player.getName()+" : "+ dice);
+                            Box box = gameService.move(player,dice);
+                            if(gameService.isWon(player)){
+                                System.out.println(player.getName() + " Won the game !!!");
                                 return;
                             }
                             if(box != null){
-                                System.out.println(players.get(chance).getName() + " is on " +box.getBoxNum());
+                                System.out.println(
+                                        player.getName() + " is on " +box.getBoxNum());
                             } else {
-                                System.out.println(players.get(chance).getName() + " is Not open");
+                                System.out.println(player.getName() + " is Not open");
                             }
                             if(dice == 6){
                                 six++;
                             } else {
-                                chance = (++iteration % players.size());
+                                chance = (++iteration % playerIds.size());
                                 break;
                             }
                         }
@@ -73,8 +75,6 @@ public class SnackAndLadderDriver {
                 default:
                     throw new IllegalStateException("Unexpected value: " + cmd);
             }
-
         }
-
     }
 }

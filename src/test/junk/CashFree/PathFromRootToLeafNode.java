@@ -38,13 +38,8 @@ public class PathFromRootToLeafNode {
 
     private static boolean printPathWithSum(TreeNode root, int max, int sum){
         if(root == null){
-            if(sum == max){
-                return true;
-            } else {
-                return false;
-            }
+            return sum == max;
         }
-
 
         boolean left = printPathWithSum(root.left, max, sum+root.item);
         boolean right = printPathWithSum(root.right, max, sum+root.item);
@@ -53,8 +48,4 @@ public class PathFromRootToLeafNode {
         }
         return (left || right);
     }
-
-
-
-
 }

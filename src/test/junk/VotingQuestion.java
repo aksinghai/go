@@ -26,9 +26,9 @@ public class VotingQuestion {
     static TreeMap<String, Integer> weightedVoteSortedMap = new TreeMap<>();
     static Map<String, Integer> weightedVoteMap = new HashMap<>();
     static int[] weights = new int[]{4,2,1};
-    private static String castVote(Map<String, List<String>> voteList) {
+    private static void castVote(Map<String, List<String>> voteList) {
         String winner = null;
-        Integer maxVote = 0;
+        int maxVote = 0;
         for(Map.Entry<String, List<String>> entry : voteList.entrySet()){
             for(int i = 0; i < entry.getValue().size(); i++){
                 int weightedVote = 0;
@@ -43,7 +43,6 @@ public class VotingQuestion {
                 }
             }
         }
-        return winner;
     }
 
     private static void printWinner(){
